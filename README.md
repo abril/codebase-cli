@@ -2,6 +2,10 @@
 
 Command utilty to open codebase repositories in you browser
 
+## Install
+
+    $ gem install codebase-cli
+
 ## Usage
 
 #### Enter the repository folder
