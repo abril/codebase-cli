@@ -1,0 +1,18 @@
+PATH
+  remote: .
+  specs:
+    codebase-cli (0.0.0)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    step-up (0.8.1)
+      thor (>= 0.14.6)
+    thor (0.14.6)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  codebase-cli!
+  step-up
