@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 CODEBASE_REPOSITORY_URL = "https://%s.codebasehq.com/projects/%s/repositories/%s/tree/master"
+CODEBASE_BRANCH_URL = "https://%s.codebasehq.com/projects/%s/repositories/%s/tree/%s"
 CODEBASE_BLOB_URL = "https://%s.codebasehq.com/projects/%s/repositories/%s/blob/master/%s"
 CODEBASE_COMMIT_URL = "https://%s.codebasehq.com/projects/%s/repositories/%s/commit/%s"
 
@@ -15,7 +16,7 @@ def open(url)
     command = 'start'
   end
   
-  `#{command} #{url}`
+  `#{command} '#{url}'`
 end
 
 def repository_info
@@ -51,8 +52,10 @@ def help
   puts "\t open the repository homepage"
   puts 'cb <file>'
   puts "\t open the specified file"
-  puts 'cb -r | --ref <commit>'
-  puts "\t open the specified commit"
+  puts 'cb -r | --ref <object>'
+  puts "\t open the specified object"
+  puts 'cb -b | --branch <branch>'
+  puts "\t open the specified branch"
 end
 
 # CLI
@@ -63,6 +66,9 @@ when '--help', '-h'
 when '--ref', '-r'
   ref = ARGV[1]
   open CODEBASE_COMMIT_URL % (repository_info << ref)
+when '--branch', '-b'
+  branch = ARGV[1]
+  open CODEBASE_BRANCH_URL % (repository_info << branch)
 when nil
   open CODEBASE_REPOSITORY_URL % repository_info
 else
