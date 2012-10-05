@@ -11,7 +11,7 @@ def open(url)
   if RUBY_PLATFORM =~ /darwin/
     command = 'open'
   elsif RUBY_PLATFORM =~ /linux/
-    command = 'xgd-open'
+    command = 'xdg-open'
   else
     command = 'start'
   end
