@@ -1,9 +1,12 @@
 #!/usr/bin/env ruby
 
-CODEBASE_REPOSITORY_URL = "https://%s.codebasehq.com/projects/%s/repositories/%s/tree/master"
-CODEBASE_BRANCH_URL = "https://%s.codebasehq.com/projects/%s/repositories/%s/tree/%s"
-CODEBASE_BLOB_URL = "https://%s.codebasehq.com/projects/%s/repositories/%s/blob/master/%s"
-CODEBASE_COMMIT_URL = "https://%s.codebasehq.com/projects/%s/repositories/%s/commit/%s"
+CODEBASE_COMPANY_URL    = "https://%s.codebasehq.com"
+CODEBASE_PROJECT_URL    = "#{CODEBASE_COMPANY_URL}/projects/%s"
+CODEBASE_REPOSITORY_URL = "#{CODEBASE_PROJECT_URL}/repositories/%s"
+CODEBASE_BRANCH_URL     = "#{CODEBASE_REPOSITORY_URL}/tree/%s"
+CODEBASE_BLOB_URL       = "#{CODEBASE_REPOSITORY_URL}/blob/master/%s"
+CODEBASE_COMMIT_URL     = "#{CODEBASE_REPOSITORY_URL}/commit/%s"
+CODEBASE_COMPARE_URL    = "#{CODEBASE_REPOSITORY_URL}/compare/%s...%s"
 
 # Helper methods
 #
@@ -56,6 +59,8 @@ def help
   puts "\t open the specified object"
   puts 'cb -b | --branch <branch>'
   puts "\t open the specified branch"
+  puts 'cb -c | --compare <ref1> [<ref2>]'
+  puts "\t open the diff page between commits. <ref2> is optional, as default value 'master'"
 end
 
 # CLI
@@ -69,8 +74,12 @@ when '--ref', '-r'
 when '--branch', '-b'
   branch = ARGV[1]
   open CODEBASE_BRANCH_URL % (repository_info << branch)
+when '--compare', '-c'
+  params = repository_info << ARGV[1]
+  params << (ARGV[2] || 'master')
+  open CODEBASE_COMPARE_URL % params
 when nil
-  open CODEBASE_REPOSITORY_URL % repository_info
+  open CODEBASE_BRANCH_URL % (repository_info << 'master')
 else
   file = ARGV[0]
   open CODEBASE_BLOB_URL % (repository_info << file)

@@ -1,6 +1,6 @@
 # Codebase Command Line Interface
 
-Command utilty to open codebase repositories in you browser
+Command utilty to open codebase repositories in your browser
 
 ## Install
 
@@ -23,6 +23,8 @@ Command utilty to open codebase repositories in you browser
 #### open the specified branch
     $ cb -b <branch>
 
+#### compare commits
+    $ cb -c <object1> [<object2>] # object2 is optional ('master' as default)
 	 
 ## Authors
 
