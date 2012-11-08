@@ -28,7 +28,7 @@ def repository_info
   if remote_info =~ /Fetch\sURL:\s(.+)\n/
     remote_url = $1
     
-    if remote_url =~ /codebase/
+    if remote_url =~ /codebasehq\.com/
       splited_url = remote_url.split('/')
 
       if splited_url.size == 3 
